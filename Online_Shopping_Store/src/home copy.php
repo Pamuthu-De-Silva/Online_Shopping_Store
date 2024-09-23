@@ -41,13 +41,11 @@ if(isset($message)){
 <html>
 <head>
    <title></title>
-   <link rel="stylesheet" href="home_style.css">
+   <link rel="stylesheet" href="home_styles.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   <!-- This css style sheet is used for add icons to the site.
-    Source :- https://fontawesome.com/  -->
    <style>
-    
       @media (max-width: 768px) {
+         /* Responsive styles here */
          
          .container-1 {
             display: flex;
@@ -125,6 +123,85 @@ if(isset($message)){
             margin-bottom: 10px;
          }
       }
+
+      @media (max-width: 768px) {
+   .container-1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+   }
+
+   .container-1 input[type="text"] {
+      width: 80%;
+      margin-right: 10px;
+   }
+
+   .container-1 .fa-search {
+      margin-left: 10px;
+   }
+
+   .top-part {
+      flex-wrap: wrap;
+   }
+
+   #log-reg {
+      margin-top: 20px;
+   }
+
+   #log-reg .signup {
+      margin-top: 10px;
+   }
+
+   #log-reg .button-login,
+   #log-reg .button-signup {
+      width: 100%;
+   }
+
+   .cart,
+   .profile {
+      margin-top: 10px;
+   }
+
+   .menu-bar ul {
+      flex-direction: column;
+   }
+
+   .menu-bar ul li {
+      margin-bottom: 10px;
+   }
+
+   .slid {
+      display: none;
+   }
+
+   .img-border {
+      width: 100%;
+      margin-bottom: 10px;
+   }
+
+   .main-fream-offers {
+      padding: 10px;
+      box-sizing: border-box;
+   }
+
+   .sub-container-box {
+      width: 100%;
+   }
+
+   .sub-container-box .item-img {
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: center;
+   }
+
+   .titles-New-Arrivals,
+   .titles-Featured-items {
+      display: block;
+      text-align: center;
+      margin-bottom: 10px;
+   }
+}
+
    </style>
 </head>
 <body>

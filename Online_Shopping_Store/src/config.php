@@ -1,5 +1,5 @@
 <?php
 
-$conn = mysqli_connect('localhost','root','','Online_shopping_db', 3307) or die('connection failed');
+$conn = mysqli_connect('localhost','root','12345','Online_shopping_db') or die('connection failed');
 
 ?>

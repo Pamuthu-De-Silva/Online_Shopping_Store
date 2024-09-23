@@ -12,7 +12,7 @@ if(!isset($admin_id)){
 
 if(isset($_GET['delete'])){
    $delete_id = $_GET['delete'];
-   mysqli_query($conn, "DELETE FROM `message` WHERE id = '$delete_id'") or die('query failed');
+   mysqli_query($conn, "DELETE FROM `feedback` WHERE id = '$delete_id'") or die('query failed');
    header('location:admin_contacts.php');
 }
 
@@ -45,7 +45,7 @@ Source :- https://fontawesome.com/  -->
 
    <div class="box-container">
    <?php
-      $select_message = mysqli_query($conn, "SELECT * FROM `message`") or die('query failed');
+      $select_message = mysqli_query($conn, "SELECT * FROM `feedback`") or die('query failed');
       if(mysqli_num_rows($select_message) > 0){
          while($fetch_message = mysqli_fetch_assoc($select_message)){
       

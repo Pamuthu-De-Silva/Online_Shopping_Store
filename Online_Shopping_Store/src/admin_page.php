@@ -111,7 +111,7 @@ Source :- https://fontawesome.com/  -->
       <div class="box">
          <?php 
             $select_feedback = mysqli_query($conn, "SELECT * FROM `feedback`") or die('query failed');
-            $number_of_messages = mysqli_num_rows($select_messages);
+            $number_of_feedback = mysqli_num_rows($select_feedback);
          ?>
          <h3><?php echo $number_of_feedback; ?></h3>
          <p>new feedback</p>
