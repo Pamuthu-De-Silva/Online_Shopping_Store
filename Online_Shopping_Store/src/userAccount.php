@@ -5,31 +5,7 @@ include 'config.php';
 session_start();
 
 $user_id = $_SESSION['user_id'];
-
-if(!isset($user_id)){
-   header('location:login.php');
-}
 ?>
-
-<?php
-
-if(isset($_GET['delete'])){
-   $delete_id = $_GET['delete'];
-   mysqli_query($conn, "DELETE FROM `feedback`  WHERE id = '$delete_id'") or die('query failed');
-   header('location:sent_message.php');
-}
-
-if(isset($_POST['update_msg'])){
-    $update_id = $_POST['msg_id'];
-    $subject = $_POST['sub_update'];
-    $message = $_POST['msg_update'];
-    
-    mysqli_query($conn, "UPDATE `feedback` SET subject = '$subject' , message='$message' WHERE id = '$update_id'") or die('query failed');
-    header('location:sent_message.php');
- }
-
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,34 +13,84 @@ if(isset($_POST['update_msg'])){
         <title> 
 
         </title>
+        <!--<link rel="stylesheet" href="userAccount.css"> -->
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
         <link rel="stylesheet" href="home_styles.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
-  
-        <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-   <title>messages</title>
+        <style>
+.wellcome {
+    font-size: 5rem;
+   color:var(--black);
+   text-transform: uppercase;
+   margin-top : 45px;
+   margin-bottom : 30px;
 
-   <!-- font awesome cdn link  -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+}
+.email{
+    font-size: 2rem;
+   color:var(--black);
+   text-transform: uppercase;
+   margin-left : 550px;
+   margin-bottom : 50px;
+}
+.lgout{
+    margin-top : 60px;
+ margin-left : 500px;
+ display: inline-block;
+   margin-top: 1rem;
+   padding:1rem 3rem;
+   cursor: pointer;
+   color:var(--white);
+   font-size: 1.8rem;
+   border-radius: .5rem;
+   text-transform: capitalize;
 
-   <!-- custom admin css file link  -->
-   <link rel="stylesheet" href="admin_style.css">
+}
+.uname{
+    font-size: 2rem;
+   color:var(--black);
+   text-transform: uppercase;
+   margin-bottom : 20px;
+   margin-left : 550px;
+}
+.account-box{
 
+    min-height: 10vh;
+   background-color: var(--light-bg);
+   
+   padding:2rem;
+
+}
+.changepassword{
+
+    margin-top : 60px;
+ margin-left : 60px;
+ display: inline-block;
+   margin-top: 1rem;
+   padding:1rem 3rem;
+   cursor: pointer;
+   color:var(--white);
+   font-size: 1.8rem;
+   border-radius: .5rem;
+   text-transform: capitalize;
+}
+
+        </style>
     </head>
     <body>
 <!--Header part (start)-->
-<div class="top-part">
+      <div class="top-part">
         <hr class="vertical-lines">
         <div class="search-bar">
-            <div class="container-1">
+          <div class="container-1">
                 <input type="text" placeholder="Search Productes">
-                
-            </div> 
+                <i class="fa fa-search" aria-hidden="true"></i>
+          </div>
         </div>
-    
+        
         <div id="logo">
-           <img src="images/logo.png" alt="logo" width="85" height="85"> 
+            <img src="images/logo.png" alt="logo" width="135" height="85">
         </div>
 <!--log-in/register buttons (start)-->
         <div id="log-reg">
@@ -94,11 +120,9 @@ if(isset($_POST['update_msg'])){
             </a>
         </div>
         <div class="profile">
-            <a href="userAccount.php">
             <button type="button" class="button-profile">
-                <span class="profile__icon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                <span class="profile__icon"><i class="fa fa-user" aria-hidden="true"></i></i></span>
             </button>
-            </a>
         </div>
 <!--Header part (end)-->
      </div>
@@ -116,61 +140,62 @@ if(isset($_POST['update_msg'])){
                         </ul>
                     </div>
                 </li>
-                <li><a href="mens_product.php?cat=Kids">Gift Cards</a></li>
+                <li><a href="mens_product.php?cat=Gift Card">Gift Cards</a></li>
                 
                 <li><a href="#">Contact US</a>
                 <div class="sub-menu-1">
                         <ul>
                             <li><a href="Sent_message.php">Sent</a></li>
-                            <li><a href="contact-us.php">New feedback</a></li>
+                            <li><a href="contact-us.php">New message</a></li>
                             
                         </ul>
                     </div>
             
                </li>
-                <li><a href="contact-us.php">About Us</a></li>
             </ul>
         </div>
 <!--Navigation bar (End)-->
-<!--messages (start)-->
 
-<section class="messages">
+<!--top banner-part (start)-->
 
-   <h1 class="title"> messages </h1>
-
-   <div class="box-container">
-   <?php
-     $user_id=$_SESSION['user_id'];
-      $select_message = mysqli_query($conn, "SELECT * FROM `feedback` where userID='$user_id'") or die('query failed');
-      if(mysqli_num_rows($select_message) > 0){
-         while($fetch_message = mysqli_fetch_assoc($select_message)){
-      
-   ?>
-   <div class="box">
-      <p> name : <span><?php echo $fetch_message['name']; ?></span> </p>
-      <p> email : <span><?php echo $fetch_message['email']; ?></span> </p>
-      <form action="" method="POST" >
-      <input type="hidden" name="msg_id" value="<?php echo $fetch_message['id']; ?> ">
-     <p>Subject :</p> <input type="text" name="sub_update" value="<?php echo $fetch_message['subject']; ?> " style="color:purple ;font-size: 2rem; ">
-      <p>Message :</p> <input type="text" name="msg_update" value="<?php echo $fetch_message['message']; ?>"style="color:purple ;font-size: 2rem; ">
-      <input type="submit" name="update_msg" value="update" class="option-btn" style="width:100%">    
-    
-    </form>
-      <a href="sent_message.php?delete=<?php echo $fetch_message['id']; ?>" onclick="return confirm('delete this message?');" class="delete-btn" style="width:100% ; padding: left 100px;">delete message</a>
-      
-   
+<div id="top-banners">
+    <div class="top-banner-fream">
+    <img src="images/banner/b.jpg" width="1400"  height=" 250" > 
     </div>
-   <?php
-      };
-   }else{
-      echo '<p class="empty">you have no messages!</p>';
-   }
-   ?>
-   </div>
+</div>
 
-</section>
+<!--top banner-part (end)-->
 
-<!--messages (end)-->
+<!--User account section (start)-->
+    <div class="wellcome">
+                  <center>
+                    <p><span>Wellcome <?php echo $_SESSION['user_name']; ?> !</span></p>
+</center>
+</div>       
+                        
+                    <div class="account-box" id="account-box">
+<div class="uname" > 
+               <p>username : <span><?php echo $_SESSION['user_name']; ?></span></p>
+</div> 
+<div class="email">      
+               <p>email : <span><?php echo $_SESSION['user_email']; ?></span></p>
+</div>
+
+<div class="lgout"> 
+                        <a href="logout.php" class="delete-btn">logout</a>
+</div> 
+   
+<div class="changepassword">
+                    <a href="change_password.php"
+                   class="delete-btn" style="cursor : pointer;">
+                        Change Password
+                    </a>
+</div>               
+
+                    </div>
+                
+<!--User account section (end)-->
+<!--About Us and partners section (end)-->
 
 <!--footer section (start)-->
             <div id="footer-section">
@@ -180,10 +205,10 @@ if(isset($_POST['update_msg'])){
                             <div class="info">
                                 <span class="title-info">Information</span>
                                 <div class="footer-links">
-                                    <span class="link-style"><a href="privacy and policy.html">Terms & Conditions</a></span><br><br>
-                                    <span class="link-style"><a href="privacy and policy.html">Privacy & Policies</a></span><br><br>
+                                    <span class="link-style"><a href="#">Terms & Conditions</a></span><br><br>
+                                    <span class="link-style"><a href="#">Privacy & Policies</a></span><br><br>
                                     <span class="link-style"><a href="#">News & Events</a></span><br><br>
-                                    <span class="link-style"><a href="FaQ.html">Questions & Answers</a></span><br><br>
+                                    <span class="link-style"><a href="#">Questions & Answers</a></span><br><br>
                                 </div>
                             </div> 
                         </div>
@@ -194,6 +219,7 @@ if(isset($_POST['update_msg'])){
                                 <span class="title-info">Quick Links</span>
                                 <div class="footer-links">
                                     <span class="link-style"><a href="userAccount.php">My Account</a></span><br><br>
+                                    <span class="link-style"><a href="#">My Orders</a></span><br><br>
                                 </div>
                             </div> 
                         </div>
