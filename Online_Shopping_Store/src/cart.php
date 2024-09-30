@@ -24,7 +24,7 @@ if(isset($_GET['delete'])){
 }
 
 if(isset($_GET['delete_all'])){
-   mysqli_query($conn, "DELETE FROM `cart` WHERE user_id = '$user_id'") or die('query failed');
+   mysqli_query($conn, "DELETE FROM `cart` WHERE userID = '$user_id'") or die('query failed');
    header('location:cart.php');
 }
 
@@ -63,20 +63,7 @@ if(isset($_GET['delete_all'])){
         <div id="logo">
             <img src="images/logo.png" alt="logo" width="85" height="85">
         </div>
-<!--log-in/register buttons (start)-->
-        <div id="log-reg">
-            <div class="loin">
-                <a href="loging.php">
-               
-                </a>
-            </div>
-            <div class="signup">
-                <a href="register.php">
-                
-                </a>
-            </div>
-        </div>
-<!--log-in/register buttons (end)-->
+
         <div class="cart">
             <a href="#">
             <button type="button" class="button-cart">
@@ -100,20 +87,29 @@ if(isset($_GET['delete_all'])){
                 <li><a href="#">Categories</a>
                     <div class="sub-menu-1">
                         <ul>
-                            <li><a href="mens_product.php?cat=Mens">Mens</a></li>
-                            <li><a href="mens_product.php?cat=Womens">Womens</a></li>
-                            <li><a href="mens_product.php?cat=Kids">Kids</a></li>
-                            <li><a href="mens_product.php?cat=Home & Living">Home & Living </a></li>
+                            <li><a href="cat_men.php">Mens</a></li>
+                            <li><a href="cat_women.php?cat=Womens">Womens</a></li>
+                            <li><a href="cat_kids.php?cat=Kids">Kids</a></li>
+                            <li><a href="cat_living.php?cat=Home & Living">Home & Living </a></li>
                         </ul>
                     </div>
                 </li>
-                <li><a href="mens_product.php?cat=Gift Card">Gift Cards</a></li>
+                <li><a href="cat_gifts.php?cat=Gift Card">Gift Cards</a></li>
                 
-                <li><a href="contact-us.php">Contact US</a></li>
+                <li><a href="#">Contact US</a>
+                <div class="sub-menu-1">
+                        <ul>
+                            <li><a href="Sent_message.php">Sent</a></li>
+                            <li><a href="contact-us.php">New message</a></li>
+                            
+                        </ul>
+                    </div>
+            
+               </li>
+                <li><a href="aboutus.php">About Us</a></li>
             </ul>
         </div>
 <!--Navigation bar (End)-->
-
 <!--top banner-part (start)-->
 
 <div id="top-banners">

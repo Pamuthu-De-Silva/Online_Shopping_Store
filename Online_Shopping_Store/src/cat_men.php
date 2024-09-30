@@ -5,30 +5,36 @@ session_start();
 
 $user_id = $_SESSION['user_id'];
 
-if (!isset($user_id)) {
-    header('location:loging.php');
+if(!isset($user_id)){
+   header('location:loging.php');
 }
 
-if (isset($_POST['add_to_cart'])) {
-    $product_name = $_POST['product_name'];
-    $product_price = $_POST['product_price'];
-    $product_image = $_POST['product_image'];
+if(isset($_POST['add_to_cart'])){
+   $product_name = $_POST['product_name'];
+   $product_price = $_POST['product_price'];
+   $product_image = $_POST['product_image'];
 
-    $check_cart_numbers = mysqli_query($conn, "SELECT * FROM `cart` WHERE name = '$product_name' AND userId = '$user_id'") or die('query failed');
+   $check_cart_numbers = mysqli_query($conn, "SELECT * FROM `cart` WHERE name = '$product_name' AND userId = '$user_id'") or die('query failed');
 
-    if (mysqli_num_rows($check_cart_numbers) > 0) {
-        $message = 'Already added to cart!';
-    } else {
-        mysqli_query($conn, "INSERT INTO `cart`(userId, name, price, quantity, image) VALUES('$user_id', '$product_name', '$product_price', 1, '$product_image')") or die('query failed');
-        $message = 'Product added to cart!';
-    }
+   if(mysqli_num_rows($check_cart_numbers) > 0){
+      $message[] = 'already added to cart!';
+   }else{
+      mysqli_query($conn, "INSERT INTO `cart`(userId, name, price, quantity, image) VALUES('$user_id', '$product_name', '$product_price', 1, '$product_image')") or die('query failed');
+      $message[] = 'product added to cart!';
+   }
 }
+
 ?>
-
-<!-- Alert for success or error messages -->
 <?php
-if (isset($message)) {
-    echo "<script>alert('$message');</script>";
+if(isset($message)){
+   foreach($message as $message){
+      echo '
+      <div class="message">
+         <span>'.$message.'</span>
+         <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
+      </div>
+      ';
+   }
 }
 ?>
 <!DOCTYPE html>
@@ -153,7 +159,7 @@ if (isset($message)) {
 
    .cart,
    .profile {
-      margin-top: 30px;
+      margin-top: 10px;
    }
 
    .menu-bar ul {
@@ -212,26 +218,7 @@ if (isset($message)) {
         <div id="logo">
            <img src="images/logo.png" alt="logo" width="85" height="85"> 
         </div>
-<!--log-in/register buttons (start)-->
-        <!-- <div id="log-reg">
-            <div class="loin">
-                <a href="loging.php">
-                <button type="button" class="button-login">
-                    <span class="button__text">sign-in</span>
-                    <span class="button__icon"><i class="fa fa-sign-in" aria-hidden="true"></i></span>
-                </button>
-                </a>
-            </div>
-            <div class="signup">
-                <a href="register.php">
-                <button type="button" class="button-signup">
-                    <span class="button__text">Register</span>
-                    <span class="button__icon"><i class="fa fa-sign-in" aria-hidden="true"></i></span>
-                </button>
-                </a>
-            </div>
-        </div> -->
-<!--log-in/register buttons (end)-->
+
         <div class="cart">
             <a href="cart.php">
             <button type="button" class="button-cart">
@@ -279,182 +266,6 @@ if (isset($message)) {
         </div>
 <!--Navigation bar (End)-->
 
-<!--top banner-part (start)-->
-
-<div id="top-banners">
-    <div class="top-banner-fream">
-        <img src="images/banner/b.jpg" width="1400"  height=" 250" > 
-    </div>
-</div>
-
-<!--top banner-part (end)-->
-
-<!--main banner (start) -->
-        <div class="slid">
-            <div id="slider">
-                <figure>
-                    <img src="images/banners/main-banner-4.jpg" width="1400" height=" 250">
-                    <img src="images/banners/main-banner-2.jpg" width="1400" height=" 250">
-                    <img src="images/banners/main-banner-3.jpg" width="1400" height=" 250">
-                    <img src="images/banners/main-banner-1.jpg" width="1400" height=" 250">
-                    <img src="images/banners/main-banner-4.jpg" width="1400" height=" 250">
-                </figure>
-            </div>
-        </div>
-<!--main banner(end)-->
-
-<!--Features - section (start)--->
-        <div id="features-cards">
-            <div class="img-border">
-                <div class="feature-img">
-                    <img src="images/features/customer-service.jpg" width="220" height="220">
-                </div>
-            </div>
-            <div class="img-border">
-                <div class="feature-img">
-                    <img src="images/features/safe-wallet.jpg" width="220" height="220">
-                </div>
-            </div>
-            <div class="img-border">
-                <div class="feature-img">
-                    <img src="images/features/sefe-payments.jpg" width="220" height="220">
-                </div>
-            </div>
-            <div class="img-border">
-                <div class="feature-img">
-                    <img src="images/features/specialp-offers.jpg" width="220" height="220">
-                </div>
-            </div>
-            <div class="img-border">
-                <div class="feature-img">
-                    <img src="images/features/world-wide-delivery.jpg" width="220" height="220">
-                </div>
-            </div>
-        </div>
-<!--Features - section (end)--->
-
-<!--offers section (start)-->
-        <div id="offers-section">
-            <div class="main-fream-offers">
-                <div id="titles">
-                    <span class="titles-offer">Offers</span>
-                </div>
-                <div class="sub-containers">
-                    <div class="sub-container-box">
-                        <div class="item-img">
-                            <img src="images/products/offers/f1.jpg" width="220" height="215" >
-                        </div>
-                        <span class="p-tiltle">Jobbs gael mens graphic printed tie dye t-shirt</span>
-                        <div class="options">
-                            <button type="button-offers" class="button-cart-offers">
-                                <span class="box-text">Add Cart</span>
-                            </button>
-                            <span class="o-price">$15.5</span>
-                            <span class="n-price">$6.5</span>
-                        </div>
-                    </div>
-                    <div class="sub-container-box">
-                        <div class="item-img">
-                            <img src="images/products/offers/f2.jpg" width="220" height="215" >
-                        </div>
-                        <span class="p-tiltle">Colortone Youth & Adult Tie Dye T-Shirt</span>
-                        <div class="options">
-                            <button type="button-offers" class="button-cart-offers">
-                                <span class="box-text">Add Cart</span>
-                            </button>
-                            <span class="o-price">$15.5</span>
-                            <span class="n-price">$6.5</span>
-                        </div>
-                    </div>
-                    <div class="sub-container-box">
-                        <div class="item-img">
-                            <img src="images/products/offers/f3.jpg" width="220" height="215" >
-                        </div>
-                        <span class="p-tiltle">Gildan Men's V-Neck T-Shirts, Multipack</span>
-                        <div class="options">
-                            <button type="button-offers" class="button-cart-offers">
-                                <span class="box-text">Add Cart</span>
-                            </button>
-                            <span class="o-price">$24.5</span>
-                            <span class="n-price">$12.5</span>
-                        </div>
-                    </div>
-                    <div class="sub-container-box">
-                        <div class="item-img">
-                            <img src="images/products/offers/f4.jpg" width="220" height="215" >
-                        </div>
-                        <span class="p-tiltle">Hanes Men’s Short Sleeve Graphic T-Shirt Collection</span>
-                        <div class="options">
-                            <button type="button-offers" class="button-cart-offers">
-                                <span class="box-text">Add Cart</span>
-                            </button>
-                            <span class="o-price">$19.5</span>
-                            <span class="n-price">$11.5</span>
-                        </div>
-                    </div>
-                    <div class="sub-container-box">
-                        <div class="item-img">
-                            <img src="images/products/offers/f5.jpg" width="220" height="215" >
-                        </div>
-                        <span class="p-tiltle">Fruit of the Loom Men's Premium Crew Tees</span>
-                        <div class="options">
-                            <button type="button-offers" class="button-cart-offers">
-                                <span class="box-text">Add Cart</span>
-                            </button>
-                            <span class="o-price">$16.5</span>
-                            <span class="n-price">$4.5</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-<!--offers section (end)-->
-
-<!--New Arrivals (start)-->
-        <div id="New-Arrivals">
-            <div class="main-fream-new-arrivals">
-                <div id="titles">
-                    <span class="titles-New-Arrivals">New Arrivals</span>
-                </div>
-                <div class="sub-containers">
-                <?php  
-            $select_products = mysqli_query($conn, "SELECT * FROM `products` order by id desc LIMIT 5") or die('query failed');
-            if(mysqli_num_rows($select_products) > 0){
-            while($fetch_products = mysqli_fetch_assoc($select_products)){
-        ?>
-    
-    <div class="sub-container-box">
-                        <div class="item-img">
-                            <img src="uploaded_images/<?php echo $fetch_products['image'] ?>" width="220" height="215" >
-                        </div>
-                        <span class="p-tiltle"><?php echo $fetch_products['name'] ?></span>
-                        <div class="options">
-                            <form method ="POST">
-                                <input type="hidden" name="product_name" value="<?php echo $fetch_products['name']; ?>">
-                                <input type="hidden" name="product_price" value="<?php echo $fetch_products['price']; ?>">
-                                <input type="hidden" name="product_image" value="<?php echo $fetch_products['image']; ?>">
-                            <button type="submit" name="add_to_cart" class="button-cart-offers">
-                                <span class="box-text">Add Cart</span>
-                            </button>
-                            <span class="normal-price">$<?php echo $fetch_products['price'] ?></span>
-
-                            </form>
-                        </div>
-                    </div>
-
-        <?php
-         }
-        }else{
-        echo '<p class="empty">no products added yet!</p>';
-        }
-        ?>
-
-              
-                </div>
-            </div>
-        </div>
-<!--New Arrivals (end)-->
-
 <!--Featured-items (start)-->
         <div id="featured-items">
             <div class="main-fream-Featured-items">
@@ -463,7 +274,7 @@ if (isset($message)) {
                 </div>
                 <div class="sub-containers">
                 <?php  
-            $select_products = mysqli_query($conn, "SELECT * FROM `products` LIMIT 5") or die('query failed');
+            $select_products = mysqli_query($conn, "SELECT * FROM `products` where category = 'Male'") or die('query failed');
             if(mysqli_num_rows($select_products) > 0){
             while($fetch_products = mysqli_fetch_assoc($select_products)){
         ?>

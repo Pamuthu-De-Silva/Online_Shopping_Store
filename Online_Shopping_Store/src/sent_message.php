@@ -66,26 +66,7 @@ if(isset($_POST['update_msg'])){
         <div id="logo">
            <img src="images/logo.png" alt="logo" width="85" height="85"> 
         </div>
-<!--log-in/register buttons (start)-->
-        <div id="log-reg">
-            <div class="loin">
-                <a href="loging.php">
-                <button type="button" class="button-login">
-                    <span class="button__text">sign-in</span>
-                    <span class="button__icon"><i class="fa fa-sign-in" aria-hidden="true"></i></span>
-                </button>
-                </a>
-            </div>
-            <div class="signup">
-                <a href="register.php">
-                <button type="button" class="button-signup">
-                    <span class="button__text">Register</span>
-                    <span class="button__icon"><i class="fa fa-sign-in" aria-hidden="true"></i></span>
-                </button>
-                </a>
-            </div>
-        </div>
-<!--log-in/register buttons (end)-->
+
         <div class="cart">
             <a href="cart.php">
             <button type="button" class="button-cart">
@@ -103,32 +84,32 @@ if(isset($_POST['update_msg'])){
 <!--Header part (end)-->
      </div>
 <!--Navigation bar (start)-->
-        <div class="menu-bar">
+<div class="menu-bar">
             <ul>
                 <li class="active"><a href="home.php">Home</a></li>
                 <li><a href="#">Categories</a>
                     <div class="sub-menu-1">
                         <ul>
-                            <li><a href="mens_product.php?cat=Mens">Mens</a></li>
-                            <li><a href="mens_product.php?cat=Womens">Womens</a></li>
-                            <li><a href="mens_product.php?cat=Kids">Kids</a></li>
-                            <li><a href="mens_product.php?cat=Home & Living">Home & Living </a></li>
+                            <li><a href="cat_men.php">Mens</a></li>
+                            <li><a href="cat_women.php?cat=Womens">Womens</a></li>
+                            <li><a href="cat_kids.php?cat=Kids">Kids</a></li>
+                            <li><a href="cat_living.php?cat=Home & Living">Home & Living </a></li>
                         </ul>
                     </div>
                 </li>
-                <li><a href="mens_product.php?cat=Kids">Gift Cards</a></li>
+                <li><a href="cat_gifts.php?cat=Gift Card">Gift Cards</a></li>
                 
                 <li><a href="#">Contact US</a>
                 <div class="sub-menu-1">
                         <ul>
                             <li><a href="Sent_message.php">Sent</a></li>
-                            <li><a href="contact-us.php">New feedback</a></li>
+                            <li><a href="contact-us.php">New message</a></li>
                             
                         </ul>
                     </div>
             
                </li>
-                <li><a href="contact-us.php">About Us</a></li>
+                <li><a href="aboutus.php">About Us</a></li>
             </ul>
         </div>
 <!--Navigation bar (End)-->
